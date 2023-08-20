@@ -268,7 +268,9 @@ class Helper:
     def get_players_iframes(self, links: list) -> list:
         players = []
         for link in links:
-            players.append(CONFIG.IFRAME.format(link))
+            for remove_from_iframe in CONFIG.REMOVE_FROM_IFRAMES:
+                link = link.replace(remove_from_iframe, "")
+            players.append(CONFIG.IFRAME.format(link.strip()))
 
         return players
 
