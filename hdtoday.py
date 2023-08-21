@@ -166,6 +166,9 @@ class HDToday:
                 if name in cast_names:
                     cast_names.remove(name)
             duration = post_data.get("duration", "")
+            director = post_data.get("director", [])
+            if isinstance(director, str):
+                director = director.split(",")
             movie = {
                 "name": post_data.get("title", ""),
                 "origin_name": post_data.get("title", ""),
@@ -176,7 +179,7 @@ class HDToday:
                 "country": self.get_slug_list_from(
                     table="country", names=country_names
                 ),
-                "director": json.dumps(post_data.get("director", [])),
+                "director": json.dumps(director),
                 "duration": f"{duration}" if duration else "",
                 "trailer": ""
                 if not post_data.get("title", "")
